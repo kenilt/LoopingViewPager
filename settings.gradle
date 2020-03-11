@@ -1,0 +1,3 @@
+rootProject.name='LoopingViewPager'
+include ':app'
+include ':loopingviewpager'
