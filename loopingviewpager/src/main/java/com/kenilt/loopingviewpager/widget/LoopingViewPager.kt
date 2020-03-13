@@ -2,9 +2,13 @@ package com.kenilt.loopingviewpager.widget
 
 import android.content.Context
 import android.database.DataSetObserver
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 
@@ -130,6 +134,10 @@ class LoopingViewPager : ViewPager {
             return if (itemsSize > 1) itemsSize + 2 else itemsSize
         }
 
+        override fun startUpdate(container: ViewGroup) {
+            pagerAdapter.startUpdate(container)
+        }
+
         override fun getItemPosition(`object`: Any): Int {
             return pagerAdapter.getItemPosition(`object`)
         }
@@ -140,6 +148,86 @@ class LoopingViewPager : ViewPager {
 
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
             pagerAdapter.destroyItem(container, getPagerPosition(position), `object`)
+        }
+
+        override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+            pagerAdapter.setPrimaryItem(container, position, `object`)
+        }
+
+        override fun finishUpdate(container: ViewGroup) {
+            pagerAdapter.finishUpdate(container)
+        }
+
+        override fun saveState(): Parcelable? {
+            return pagerAdapter.saveState()
+        }
+
+        override fun restoreState(state: Parcelable?, loader: ClassLoader?) {
+            pagerAdapter.restoreState(state, loader)
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return pagerAdapter.getPageTitle(position)
+        }
+
+        override fun getPageWidth(position: Int): Float {
+            return pagerAdapter.getPageWidth(position)
+        }
+    }
+
+    inner class InternalFragmentPagerAdapter(fm: FragmentManager, private val pagerAdapter: FragmentPagerAdapter) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+        override fun getItem(position: Int): Fragment {
+            return pagerAdapter.getItem(position)
+        }
+
+        override fun getCount(): Int {
+            val itemsSize = pagerAdapter.count
+            return if (itemsSize > 1) itemsSize + 2 else itemsSize
+        }
+
+        override fun startUpdate(container: ViewGroup) {
+            pagerAdapter.startUpdate(container)
+        }
+
+        override fun getItemPosition(`object`: Any): Int {
+            return pagerAdapter.getItemPosition(`object`)
+        }
+
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            return pagerAdapter.instantiateItem(container, getPagerPosition(position))
+        }
+
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            pagerAdapter.destroyItem(container, getPagerPosition(position), `object`)
+        }
+
+        override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+            pagerAdapter.setPrimaryItem(container, position, `object`)
+        }
+
+        override fun finishUpdate(container: ViewGroup) {
+            pagerAdapter.finishUpdate(container)
+        }
+
+        override fun saveState(): Parcelable? {
+            return pagerAdapter.saveState()
+        }
+
+        override fun restoreState(state: Parcelable?, loader: ClassLoader?) {
+            pagerAdapter.restoreState(state, loader)
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return pagerAdapter.getPageTitle(position)
+        }
+
+        override fun getPageWidth(position: Int): Float {
+            return pagerAdapter.getPageWidth(position)
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
         }
     }
 

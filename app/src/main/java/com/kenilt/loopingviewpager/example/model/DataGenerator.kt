@@ -17,12 +17,12 @@ object DataGenerator {
         R.color.snow
     )
 
-    fun generateList(length: Int = 4): List<PageModel> {
+    fun generateList(length: Int = 4, prefix: String = "Page"): List<PageModel> {
         val dataList = ArrayList<PageModel>()
         repeat(length) {
             dataList.add(
                 PageModel(
-                    "Page ${it + 1}",
+                    "$prefix ${it + 1}",
                     colors[it % colors.size]
                 )
             )

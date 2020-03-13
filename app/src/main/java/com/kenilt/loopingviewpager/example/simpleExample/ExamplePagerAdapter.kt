@@ -1,4 +1,4 @@
-package com.kenilt.loopingviewpager.example
+package com.kenilt.loopingviewpager.example.simpleExample
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
+import com.kenilt.loopingviewpager.example.R
 import com.kenilt.loopingviewpager.example.model.PageModel
 import kotlinx.android.synthetic.main.item_page.view.*
 
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.item_page.view.*
 /**
  * Created by thangnguyen on 3/11/20.
  */
-class TextPagerAdapter(private var mContext: Context, private var dataList: List<PageModel>): PagerAdapter() {
+class ExamplePagerAdapter(private var mContext: Context, private var dataList: List<PageModel>): PagerAdapter() {
 
     override fun instantiateItem(collection: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(mContext)
