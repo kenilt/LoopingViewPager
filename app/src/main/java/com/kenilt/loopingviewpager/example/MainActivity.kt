@@ -11,5 +11,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         vpPager.adapter = TextPagerAdapter(this, DataGenerator.generateList())
+        indicator.setViewPager(vpPager)
     }
 }
