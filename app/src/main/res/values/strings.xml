@@ -3,6 +3,7 @@
     <string name="simple_example">Simple example</string>
     <string name="fragment_pager_example">Fragment pager example</string>
     <string name="fragment_state_pager_example">Fragment state pager example</string>
+    <string name="indicator_example">Tab layout + Some indicators</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

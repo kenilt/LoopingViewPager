@@ -3,7 +3,6 @@ package com.kenilt.loopingviewpager.widget
 import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.contains
 import androidx.viewpager.widget.PagerAdapter
 import com.kenilt.loopingviewpager.util.LoopingUtil
 
@@ -36,17 +35,13 @@ internal class InternalLoopingAdapter(private val pagerAdapter: PagerAdapter): P
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        if (`object` is View && container.contains(`object`)) {
-            container.removeView(`object`)
-        } else {
-            pagerAdapter.destroyItem(
-                container,
-                LoopingUtil.getPagerPosition(
-                    pagerAdapter,
-                    position
-                ), `object`
-            )
-        }
+        pagerAdapter.destroyItem(
+            container,
+            LoopingUtil.getPagerPosition(
+                pagerAdapter,
+                position
+            ), `object`
+        )
     }
 
     override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {

@@ -36,4 +36,8 @@ class ExamplePagerAdapter(private var mContext: Context, private var dataList: L
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view === `object`
     }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return dataList[position].text
+    }
 }

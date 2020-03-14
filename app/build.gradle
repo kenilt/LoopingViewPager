@@ -35,6 +35,9 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.4'
     implementation 'com.kenilt.circleindicator:circleindicator:1.0.1'
     implementation "com.psoffritti.librarysampleapptemplate:core:1.0.2"
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
+    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'

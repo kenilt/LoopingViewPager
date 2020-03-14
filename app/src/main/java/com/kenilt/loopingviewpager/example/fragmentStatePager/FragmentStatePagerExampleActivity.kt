@@ -18,7 +18,7 @@ class FragmentStatePagerExampleActivity : BaseExampleActivity() {
         vpPager.setAdapter(
             ExampleFragmentStatePagerAdapter(
                 supportFragmentManager,
-                DataGenerator.generateList(2, "Fragment Page")
+                DataGenerator.generateList(4, "Fragment Page")
             ), supportFragmentManager
         )
         indicator.setViewPager(vpPager)
