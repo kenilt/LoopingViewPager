@@ -39,7 +39,7 @@ class SimpleExampleActivity : BaseExampleActivity() {
         })
 
         // auto scroll
-        val autoScroller = AutoScroller(vpPager, lifecycle, 1000)
+        val autoScroller = AutoScroller(vpPager, lifecycle, 3000)
         swAutoScroll.setOnCheckedChangeListener { _, isChecked ->
             autoScroller.isAutoScroll = isChecked
         }
