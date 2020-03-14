@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 
@@ -45,20 +46,35 @@ class LoopingViewPager : ViewPager {
             return
         }
 
-        internalAdapter = InternalLoopingAdapter(adapter)
-        originalAdapter = adapter
+        val internalAdapter = InternalLoopingAdapter(adapter)
+        handleSetAdapter(internalAdapter, adapter)
+    }
+
+    fun setAdapter(adapter: FragmentPagerAdapter, fm: FragmentManager) {
+        val internalAdapter = InternalFragmentPagerAdapter(adapter, fm)
+        handleSetAdapter(internalAdapter, adapter)
+    }
+
+    fun setAdapter(adapter: FragmentStatePagerAdapter, fm: FragmentManager) {
+        val internalAdapter = InternalFragmentStatePagerAdapter(adapter, fm)
+        handleSetAdapter(internalAdapter, adapter)
+    }
+
+    private fun handleSetAdapter(internalAdapter: PagerAdapter, originalAdapter: PagerAdapter) {
+        this.internalAdapter = internalAdapter
+        this.originalAdapter = originalAdapter
         super.setAdapter(internalAdapter)
-        originalAdapter?.registerDataSetObserver(object: DataSetObserver() {
+        originalAdapter.registerDataSetObserver(object: DataSetObserver() {
             override fun onChanged() {
-                internalAdapter?.notifyDataSetChanged()
+                internalAdapter.notifyDataSetChanged()
             }
 
             override fun onInvalidated() {
-                internalAdapter?.notifyDataSetChanged()
+                internalAdapter.notifyDataSetChanged()
             }
         })
         post {
-            if (adapter.count > 1) {
+            if (originalAdapter.count > 1) {
                 super.setCurrentItem(1, false)
             }
         }
@@ -175,10 +191,10 @@ class LoopingViewPager : ViewPager {
         }
     }
 
-    inner class InternalFragmentPagerAdapter(fm: FragmentManager, private val pagerAdapter: FragmentPagerAdapter) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    inner class InternalFragmentPagerAdapter(private val pagerAdapter: FragmentPagerAdapter, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getItem(position: Int): Fragment {
-            return pagerAdapter.getItem(position)
+            return pagerAdapter.getItem(getPagerPosition(position))
         }
 
         override fun getCount(): Int {
@@ -186,16 +202,8 @@ class LoopingViewPager : ViewPager {
             return if (itemsSize > 1) itemsSize + 2 else itemsSize
         }
 
-        override fun startUpdate(container: ViewGroup) {
-            pagerAdapter.startUpdate(container)
-        }
-
         override fun getItemPosition(`object`: Any): Int {
             return pagerAdapter.getItemPosition(`object`)
-        }
-
-        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            return pagerAdapter.instantiateItem(container, getPagerPosition(position))
         }
 
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
@@ -206,8 +214,48 @@ class LoopingViewPager : ViewPager {
             pagerAdapter.setPrimaryItem(container, position, `object`)
         }
 
-        override fun finishUpdate(container: ViewGroup) {
-            pagerAdapter.finishUpdate(container)
+        override fun saveState(): Parcelable? {
+            return pagerAdapter.saveState()
+        }
+
+        override fun restoreState(state: Parcelable?, loader: ClassLoader?) {
+            pagerAdapter.restoreState(state, loader)
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return pagerAdapter.getPageTitle(position)
+        }
+
+        override fun getPageWidth(position: Int): Float {
+            return pagerAdapter.getPageWidth(position)
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+    }
+
+    inner class InternalFragmentStatePagerAdapter(private val pagerAdapter: FragmentStatePagerAdapter, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+        override fun getItem(position: Int): Fragment {
+            return pagerAdapter.getItem(getPagerPosition(position))
+        }
+
+        override fun getCount(): Int {
+            val itemsSize = pagerAdapter.count
+            return if (itemsSize > 1) itemsSize + 2 else itemsSize
+        }
+
+        override fun getItemPosition(`object`: Any): Int {
+            return pagerAdapter.getItemPosition(`object`)
+        }
+
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            pagerAdapter.destroyItem(container, getPagerPosition(position), `object`)
+        }
+
+        override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+            pagerAdapter.setPrimaryItem(container, position, `object`)
         }
 
         override fun saveState(): Parcelable? {

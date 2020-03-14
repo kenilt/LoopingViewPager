@@ -1,19 +1,20 @@
-package com.kenilt.loopingviewpager.example.fragmentPager
+package com.kenilt.loopingviewpager.example.fragmentStatePager
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.kenilt.loopingviewpager.example.BaseExampleActivity
 import com.kenilt.loopingviewpager.example.R
 import com.kenilt.loopingviewpager.example.model.DataGenerator
-import kotlinx.android.synthetic.main.activity_fragment_pager_example.*
+import kotlinx.android.synthetic.main.activity_fragment_state_pager_example.*
 
-class FragmentPagerExampleActivity : BaseExampleActivity() {
+class FragmentStatePagerExampleActivity : BaseExampleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fragment_pager_example)
+        setContentView(R.layout.activity_fragment_state_pager_example)
 
         vpPager.setAdapter(
-            ExampleFragmentPagerAdapter(
+            ExampleFragmentStatePagerAdapter(
                 supportFragmentManager,
                 DataGenerator.generateList(4, "Fragment Page")
             ), supportFragmentManager
@@ -22,6 +23,6 @@ class FragmentPagerExampleActivity : BaseExampleActivity() {
     }
 
     override fun getTitleId(): Int {
-        return R.string.fragment_pager_example
+        return R.string.fragment_state_pager_example
     }
 }
