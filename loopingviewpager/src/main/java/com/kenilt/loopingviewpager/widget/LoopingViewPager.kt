@@ -25,7 +25,7 @@ class LoopingViewPager : ViewPager {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     init {
-        addOnPageChangeListener(object : SimpleOnPageChangeListener() {
+        super.addOnPageChangeListener(object : SimpleOnPageChangeListener() {
             override fun onPageScrollStateChanged(state: Int) {
                 if (state == SCROLL_STATE_IDLE) {
                     handleSetCurrentItem(getSuperCurrentItem())
@@ -44,26 +44,25 @@ class LoopingViewPager : ViewPager {
             return
         }
 
-        val internalAdapter =
-            InternalLoopingAdapter(adapter)
+        val internalAdapter = when(adapter) {
+            is FragmentPagerAdapter -> InternalFragmentPagerAdapter(adapter, getFragmentManager(adapter))
+            is FragmentStatePagerAdapter -> InternalFragmentStatePagerAdapter(adapter, getFragmentManager(adapter))
+            else -> InternalLoopingAdapter(adapter)
+        }
         handleSetAdapter(internalAdapter, adapter)
     }
 
-    fun setAdapter(adapter: FragmentPagerAdapter, fm: FragmentManager) {
-        val internalAdapter =
-            InternalFragmentPagerAdapter(
-                adapter,
-                fm
-            )
-        handleSetAdapter(internalAdapter, adapter)
-    }
+    fun setAdapter(adapter: PagerAdapter?, fm: FragmentManager?) {
+        if (adapter == null) {
+            super.setAdapter(null)
+            return
+        }
 
-    fun setAdapter(adapter: FragmentStatePagerAdapter, fm: FragmentManager) {
-        val internalAdapter =
-            InternalFragmentStatePagerAdapter(
-                adapter,
-                fm
-            )
+        val internalAdapter = when(adapter) {
+            is FragmentPagerAdapter -> InternalFragmentPagerAdapter(adapter, fm ?: getFragmentManager(adapter))
+            is FragmentStatePagerAdapter -> InternalFragmentStatePagerAdapter(adapter, fm ?: getFragmentManager(adapter))
+            else -> InternalLoopingAdapter(adapter)
+        }
         handleSetAdapter(internalAdapter, adapter)
     }
 
@@ -133,5 +132,11 @@ class LoopingViewPager : ViewPager {
         } else if (position == lastPosition) {
             super.setCurrentItem(1, false)
         }
+    }
+
+    private fun getFragmentManager(adapter: PagerAdapter): FragmentManager {
+        val f = adapter::class.java.getDeclaredField("mFragmentManager")
+        f.isAccessible = true
+        return f.get(adapter) as FragmentManager
     }
 }

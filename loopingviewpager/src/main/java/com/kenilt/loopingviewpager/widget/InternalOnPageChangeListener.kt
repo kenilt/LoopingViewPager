@@ -4,7 +4,7 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.kenilt.loopingviewpager.util.LoopingUtil
 
-class InternalOnPageChangeListener(
+internal class InternalOnPageChangeListener(
     private val pageChangeListener: ViewPager.OnPageChangeListener,
     private val adapterGetter: () -> PagerAdapter?
 ) : ViewPager.OnPageChangeListener {
