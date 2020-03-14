@@ -6,7 +6,7 @@ import androidx.viewpager.widget.ViewPager
 /**
  * Created by Kenilt on 3/11/20.
  */
-class AutoScroller(val viewPager: ViewPager, var scrollInterval: Long = 3000) {
+class AutoScroller(val viewPager: ViewPager, var scrollInterval: Long = 5000) {
 
     private var isAutoScroll = true
     private var isAutoScrollResumed = true
@@ -35,6 +35,7 @@ class AutoScroller(val viewPager: ViewPager, var scrollInterval: Long = 3000) {
                 }
             }
         })
+        resumeAutoScroll()
     }
 
     fun resumeAutoScroll() {

@@ -79,6 +79,7 @@ class LoopingViewPager : ViewPager {
                 internalAdapter.notifyDataSetChanged()
             }
         })
+        super.setCurrentItem(1, false)
         post {
             if (originalAdapter.count > 1) {
                 super.setCurrentItem(1, false)
