@@ -38,13 +38,10 @@ class SimpleExampleActivity : BaseExampleActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-        val autoScroller = AutoScroller(vpPager, 1000)
+        // auto scroll
+        val autoScroller = AutoScroller(vpPager, lifecycle, 1000)
         swAutoScroll.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                autoScroller.resumeAutoScroll()
-            } else {
-                autoScroller.pauseAutoScroll()
-            }
+            autoScroller.isAutoScroll = isChecked
         }
     }
 
