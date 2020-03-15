@@ -1,0 +1,71 @@
+ext {
+    appVersionName = gitVersionName()
+    appVersionCode = appVersionCode()
+    gitBranch = gitBranch()
+    appDeploymentTrack = gitDeploymentTrack()
+}
+
+task printVersion() {
+    println("Version Name: $appVersionName")
+    println("Version Code: $appVersionCode")
+    println("Branch: $gitBranch")
+    println("Deployment Track: $appDeploymentTrack")
+}
+
+static def gitVersionName() {
+    def tag = "unknow"
+    def lastTagCommit = ""
+    def proc0 = "git rev-list --max-count=1 --tags".execute()
+    proc0.in.eachLine { line -> lastTagCommit = line }
+    proc0.err.eachLine { line -> println line }
+    def proc = "git describe --tags $lastTagCommit".execute()
+    proc.in.eachLine { line -> tag = line }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+    tag
+}
+
+static def appVersionCode() {
+    def buildNumber = System.getenv("CIRCLE_BUILD_NUM")
+    def versionCode
+    if (buildNumber != null) {
+        versionCode = 4000 + buildNumber.toInteger()
+    } else {
+        versionCode = gitVersionCode()
+    }
+    versionCode
+}
+
+static def gitVersionCode() {
+    def versionCode = 0
+    def proc = "git rev-list HEAD --count".execute()
+    proc.in.eachLine { line -> versionCode = line.toInteger() }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+    versionCode
+}
+
+static def gitBranch() {
+    def branch = ""
+    def proc = "git rev-parse --abbrev-ref HEAD".execute()
+    proc.in.eachLine { line -> branch = line }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+    branch
+}
+
+// The deployment track is based on the branch.
+static def gitDeploymentTrack() {
+    def branch = gitBranch()
+    def track = 'internal'
+    if (branch == "master") {
+        track = "beta"
+    } else if (branch.startsWith("release-")) {
+        track = "alpha"
+    } else if (branch == "HEAD") {
+        if (System.getenv("CIRCLE_TAG") != null) {
+            track = "beta"
+        }
+    }
+    return track
+}

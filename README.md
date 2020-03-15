@@ -3,6 +3,12 @@
 
 A ViewPager which support infinite looping effect, smart auto-scroll, compatible with any indicators and easily for usage. It especially uses it as banners of application with a simple item page.
 
+Looping Viewpager can:
+- Plug and play, easily to use
+- Infinite Looping items
+- Auto scroll items, allow config, auto resume/pause when activity/fragment resume/pause
+- Won't scroll or loop if it has only 1 item
+- Compatible with many indicators
 
 ## Demo app effect
 <table>

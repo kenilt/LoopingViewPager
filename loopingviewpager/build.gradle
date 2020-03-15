@@ -2,6 +2,32 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+apply from: "$project.rootDir/tools/script-git-version.gradle"
+
+ext {
+    bintrayRepo = 'LoopingViewPager' // Repo name in bintray dashboard
+    bintrayName = 'com.kenilt.loopingviewpager' // package name of the bintray repo
+
+    publishedGroupId = 'com.kenilt.loopingviewpager'   // this is the ID we want to see in implementation line
+    libraryName = 'loopingviewpager'     // this is the module name of library
+    artifact = 'loopingviewpager'        // this is the artifact we want to see in implementation line
+
+    libraryDescription = 'A ViewPager which support infinite looping effect, smart auto-scroll, compatible with any indicators and easily for usage' // description of library
+
+    siteUrl = 'https://github.com/kenilt/LoopingViewPager'    // git repo url
+    gitUrl = 'https://github.com/kenilt/LoopingViewPager.git' // git repo vcs url
+
+    libraryVersion = appVersionName      // library version
+
+    developerId = 'kenilt'                // This is your bintray username
+    developerName = 'Kenilt Nguyen'              // Developer's name
+    developerEmail = 'nhthang.khtn@gmail.com'                // Developer's email
+
+    licenseName = 'The MIT License (MIT)'  // for example, The Apache Software License, Version 2.0
+    licenseUrl = 'https://opensource.org/licenses/MIT'   // for example, http://www.apache.org/licenses/LICENSE-2.0.txt
+    allLicenses = ["MIT"]    // array of licenses, for example, ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -34,3 +60,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
+// Avoid Kotlin docs error
+tasks.withType(Javadoc).all {
+    enabled = false
+}
+
+apply from: 'publish.gradle'
