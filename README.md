@@ -1,10 +1,10 @@
 # LoopingViewPager
 [ ![Download](https://api.bintray.com/packages/kenilt/LoopingViewPager/com.kenilt.loopingviewpager/images/download.svg) ](https://bintray.com/kenilt/LoopingViewPager/com.kenilt.loopingviewpager/_latestVersion)
 
-A ViewPager which support infinite looping effect, smart auto-scroll, compatible with any indicators and easily for usage. It especially uses it as banners of application with a simple item page.
+A ViewPager that supports infinite looping effect, smart auto-scroll, compatible with any indicators and easy to use. It especially uses it as banners of application with a simple item page.
 
 Looping Viewpager can:
-- Plug and play, easily to use
+- Plug and play, easy to use
 - Infinite Looping items
 - Auto scroll items, allow config, auto resume/pause when activity/fragment resume/pause
 - Won't scroll or loop if it has only 1 item
