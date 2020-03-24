@@ -41,7 +41,7 @@ The minimum API level supported by this library is API 16.
 The latest version here [ ![Download](https://api.bintray.com/packages/kenilt/LoopingViewPager/com.kenilt.loopingviewpager/images/download.svg) ](https://bintray.com/kenilt/LoopingViewPager/com.kenilt.loopingviewpager/_latestVersion)
 ```
 dependencies {
-    implementation 'com.kenilt.loopingviewpager:loopingviewpager:1.0.0'
+    implementation 'com.kenilt.loopingviewpager:loopingviewpager:0.1.0'
 }
 ```
 
