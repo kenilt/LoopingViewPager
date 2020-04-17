@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager
 /**
  * Created by Kenilt on 3/11/20.
  */
-class AutoScroller(val viewPager: ViewPager, lifecycle: Lifecycle? = null, scrollInterval: Long = 5000) : LifecycleObserver {
+class AutoScroller(val viewPager: ViewPager, lifecycle: Lifecycle? = null, scrollInterval: Long = 5000) : LifecycleObserver, ScrollerObserver {
 
     var scrollInterval: Long = scrollInterval
         set(value) {
@@ -40,6 +40,12 @@ class AutoScroller(val viewPager: ViewPager, lifecycle: Lifecycle? = null, scrol
             viewPager.setCurrentItem(currentPagePosition, true)
         }
     }
+    var scrollerCycle: ScrollerCycle? = null
+        set(value) {
+            field = value
+            value?.removeObserver(this)
+            value?.addObserver(this)
+        }
 
     init {
         viewPager.addOnPageChangeListener(object: ViewPager.SimpleOnPageChangeListener() {
@@ -68,6 +74,14 @@ class AutoScroller(val viewPager: ViewPager, lifecycle: Lifecycle? = null, scrol
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     private fun onPause() {
         removeAutoScrollCallback()
+    }
+
+    override fun changeAutoScroll(isAutoScroll: Boolean) {
+        if (isAutoScroll) {
+            resumeAutoScrollWhenNeeded()
+        } else {
+            removeAutoScrollCallback()
+        }
     }
 
     private fun resumeAutoScrollWhenNeeded() {

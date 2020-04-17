@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kenilt.loopingviewpager.example.fragmentPager.FragmentPagerExampleActivity
 import com.kenilt.loopingviewpager.example.fragmentStatePager.FragmentStatePagerExampleActivity
 import com.kenilt.loopingviewpager.example.indicatorExample.IndicatorExampleActivity
+import com.kenilt.loopingviewpager.example.showHideFragmentExample.ShowHideFragmentActivity
 import com.kenilt.loopingviewpager.example.simpleExample.SimpleExampleActivity
 import com.psoffritti.librarysampleapptemplate.core.Constants
 import com.psoffritti.librarysampleapptemplate.core.SampleAppTemplateActivity
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                 FragmentPagerExampleActivity::class.java
             ),
             ExampleActivityDetails(R.string.fragment_state_pager_example, null, FragmentStatePagerExampleActivity::class.java),
+            ExampleActivityDetails(R.string.show_hide_fragment_example, null, ShowHideFragmentActivity::class.java),
             ExampleActivityDetails(R.string.indicator_example, null, IndicatorExampleActivity::class.java)
         )
         intent.putExtra(Constants.EXAMPLES.name, examples)
