@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".indicatorExample.IndicatorExampleActivity"></activity>
+        <activity android:name=".showHideFragmentExample.ShowHideFragmentActivity"></activity>
+        <activity android:name=".indicatorExample.IndicatorExampleActivity" />
         <activity android:name=".fragmentStatePager.FragmentStatePagerExampleActivity" />
         <activity android:name=".fragmentPager.FragmentPagerExampleActivity" />
         <activity android:name=".MainActivity">
