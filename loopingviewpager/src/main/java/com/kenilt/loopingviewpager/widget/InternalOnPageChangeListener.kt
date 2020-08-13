@@ -31,11 +31,9 @@ internal class InternalOnPageChangeListener(
     }
 
     override fun onPageSelected(position: Int) {
-        pageChangeListener.onPageSelected(
-            LoopingUtil.getPagerPosition(
-                adapterGetter.invoke(),
-                position
-            )
-        )
+        val selectedIndex = LoopingUtil.getPagerPositionForSelected(adapterGetter.invoke(), position)
+        if (selectedIndex >= 0) {
+            pageChangeListener.onPageSelected(selectedIndex)
+        }
     }
 }
