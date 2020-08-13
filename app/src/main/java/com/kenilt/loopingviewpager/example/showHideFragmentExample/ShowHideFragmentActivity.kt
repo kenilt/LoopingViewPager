@@ -1,11 +1,11 @@
 package com.kenilt.loopingviewpager.example.showHideFragmentExample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.kenilt.loopingviewpager.example.BaseExampleActivity
 import com.kenilt.loopingviewpager.example.R
 import kotlinx.android.synthetic.main.activity_show_hide_fragment.*
 
-class ShowHideFragmentActivity : AppCompatActivity() {
+class ShowHideFragmentActivity : BaseExampleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,5 +25,9 @@ class ShowHideFragmentActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().hide(simpleExampleFragment).commit()
             }
         }
+    }
+
+    override fun getTitleId(): Int {
+        return R.string.show_hide_fragment_example
     }
 }
