@@ -14,16 +14,28 @@ class SimpleExampleActivity : BaseExampleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simple_example)
 
+        // View pager adapter and indicator
         vpPager.adapter = ExamplePagerAdapter(
             this,
             DataGenerator.generateList()
         )
         indicator.setViewPager(vpPager)
 
+        // Auto scroll
+        val autoScroller = AutoScroller(vpPager, lifecycle, 3000)
+        swAutoScroll.setOnCheckedChangeListener { _, isChecked ->
+            autoScroller.isAutoScroll = isChecked
+        }
+
+        // Others
+        initRelatedViews()
+    }
+
+    private fun initRelatedViews() {
         btnPrevious.setOnClickListener { vpPager.setCurrentItem(vpPager.currentItem - 1, true) }
         btnNext.setOnClickListener { vpPager.setCurrentItem(vpPager.currentItem + 1, true) }
 
-        seekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 val count = progress + 1
                 txtItemCount.text = "Item count:   $count"
@@ -37,12 +49,6 @@ class SimpleExampleActivity : BaseExampleActivity() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
-
-        // auto scroll
-        val autoScroller = AutoScroller(vpPager, lifecycle, 3000)
-        swAutoScroll.setOnCheckedChangeListener { _, isChecked ->
-            autoScroller.isAutoScroll = isChecked
-        }
     }
 
     override fun getTitleId(): Int {
