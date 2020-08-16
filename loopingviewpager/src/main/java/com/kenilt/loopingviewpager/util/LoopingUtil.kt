@@ -34,20 +34,4 @@ object LoopingUtil {
             else -> internalPosition - 1
         }
     }
-
-    /**
-     * Convert internal position to pager position for paged selected
-     * The index out of range will be return -1
-     *
-     * @param originalAdapter is the adapter which was defined by outer
-     * @param internalPosition is the internal position
-     */
-    fun getPagerPositionForSelected(originalAdapter: PagerAdapter?, internalPosition: Int): Int {
-        val count = originalAdapter?.count ?: 0
-        return when (internalPosition) {
-            0 -> -1
-            count + 1 -> -1
-            else -> internalPosition - 1
-        }
-    }
 }
