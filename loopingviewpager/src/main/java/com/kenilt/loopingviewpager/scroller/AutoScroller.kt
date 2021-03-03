@@ -1,6 +1,5 @@
 package com.kenilt.loopingviewpager.scroller
 
-import android.annotation.SuppressLint
 import android.os.Handler
 import android.view.View
 import androidx.lifecycle.Lifecycle
@@ -12,7 +11,6 @@ import androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING
 /**
  * Created by Kenilt on 3/11/20.
  */
-@SuppressLint("ClickableViewAccessibility")
 class AutoScroller(val viewPager: ViewPager, lifecycle: Lifecycle? = null, scrollInterval: Long = 5000) : LifecycleObserver, ScrollerObserver {
 
     var scrollInterval: Long = scrollInterval
