@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import com.kenilt.loopingviewpager.example.R
@@ -21,6 +22,9 @@ class ExamplePagerAdapter(private var mContext: Context, private var dataList: L
         val layout = inflater.inflate(R.layout.item_page, collection, false) as ViewGroup
         layout.item_txtText.text = dataList[position].text
         layout.item_txtText.setBackgroundColor(ContextCompat.getColor(mContext, dataList[position].color))
+        layout.item_txtText.setOnClickListener {
+            Toast.makeText(mContext, "Item $position clicked", Toast.LENGTH_SHORT).show()
+        }
         collection.addView(layout)
         return layout
     }
