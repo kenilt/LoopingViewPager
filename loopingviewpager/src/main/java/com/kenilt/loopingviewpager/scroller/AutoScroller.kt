@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager.widget.ViewPager.SCROLL_STATE_DRAGGING
 
 /**
  * Created by Kenilt on 3/11/20.
@@ -26,6 +27,7 @@ class AutoScroller(val viewPager: ViewPager, lifecycle: Lifecycle? = null, scrol
                 removeAutoScrollCallback()
             }
         }
+    var isStopAutoScrollWhileDragging = true
     private var currentPagePosition = 0
     private val autoScrollHandler: Handler = Handler()
     private val autoScrollRunnable: Runnable = object : Runnable {
@@ -49,9 +51,23 @@ class AutoScroller(val viewPager: ViewPager, lifecycle: Lifecycle? = null, scrol
 
     init {
         viewPager.addOnPageChangeListener(object: ViewPager.SimpleOnPageChangeListener() {
+            var isStopByDrag = false
+
             override fun onPageSelected(position: Int) {
                 currentPagePosition = position
                 resumeAutoScrollWhenNeeded()
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                if (isStopAutoScrollWhileDragging) {
+                    if (state == SCROLL_STATE_DRAGGING && !isStopByDrag) {
+                        removeAutoScrollCallback()
+                        isStopByDrag = true
+                    } else if (state != SCROLL_STATE_DRAGGING && isStopByDrag) {
+                        resumeAutoScrollWhenNeeded()
+                        isStopByDrag = false
+                    }
+                }
             }
         })
         viewPager.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener{
