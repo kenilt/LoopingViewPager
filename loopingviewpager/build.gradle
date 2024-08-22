@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 apply from: "$project.rootDir/tools/script-git-version.gradle"
 
@@ -65,5 +64,3 @@ dependencies {
 tasks.withType(Javadoc).all {
     enabled = false
 }
-
-apply from: 'publish.gradle'
