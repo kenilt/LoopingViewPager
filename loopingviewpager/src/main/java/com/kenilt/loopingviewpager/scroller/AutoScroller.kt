@@ -71,11 +71,11 @@ class AutoScroller(val viewPager: ViewPager, lifecycle: Lifecycle? = null, scrol
             }
         })
         viewPager.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener{
-            override fun onViewDetachedFromWindow(v: View?) {
+            override fun onViewDetachedFromWindow(v: View) {
                 removeAutoScrollCallback()
             }
 
-            override fun onViewAttachedToWindow(v: View?) {
+            override fun onViewAttachedToWindow(v: View) {
                 resumeAutoScrollWhenNeeded()
             }
         })

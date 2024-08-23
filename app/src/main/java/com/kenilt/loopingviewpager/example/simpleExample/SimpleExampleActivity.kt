@@ -1,18 +1,38 @@
 package com.kenilt.loopingviewpager.example.simpleExample
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.SeekBar
+import android.widget.Switch
+import android.widget.TextView
+import com.kenilt.circleindicator.CirclePageIndicator
 import com.kenilt.loopingviewpager.example.BaseExampleActivity
 import com.kenilt.loopingviewpager.example.R
 import com.kenilt.loopingviewpager.example.model.DataGenerator
 import com.kenilt.loopingviewpager.scroller.AutoScroller
-import kotlinx.android.synthetic.main.activity_simple_example.*
+import com.kenilt.loopingviewpager.widget.LoopingViewPager
 
 class SimpleExampleActivity : BaseExampleActivity() {
+
+    private lateinit var vpPager: LoopingViewPager
+    private lateinit var indicator: CirclePageIndicator
+    private lateinit var swAutoScroll: Switch
+    private lateinit var btnPrevious: Button
+    private lateinit var btnNext: Button
+    private lateinit var seekBar: SeekBar
+    private lateinit var txtItemCount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simple_example)
+
+        vpPager = findViewById(R.id.vpPager)
+        indicator = findViewById(R.id.indicator)
+        swAutoScroll = findViewById(R.id.swAutoScroll)
+        btnPrevious = findViewById(R.id.btnPrevious)
+        btnNext = findViewById(R.id.btnNext)
+        seekBar = findViewById(R.id.seekBar)
+        txtItemCount = findViewById(R.id.txtItemCount)
 
         // View pager adapter and indicator
         vpPager.adapter = ExamplePagerAdapter(
