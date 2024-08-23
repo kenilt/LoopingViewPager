@@ -43,7 +43,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'me.relex:circleindicator:2.1.6'
-    implementation 'io.github.kenilt:circleindicator:1.0.1'
+    implementation 'io.github.kenilt:circleindicator:1.1.0'
     implementation 'com.github.PierfrancescoSoffritti:library-sample-app-template:v1.0.3'
     implementation("com.tbuonomo:dotsindicator:5.0")
     implementation 'com.github.romandanylyk:PageIndicatorView:v.1.0.3'
