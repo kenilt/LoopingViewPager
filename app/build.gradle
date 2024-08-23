@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 30
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.kenilt.loopingviewpager.example"
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdkVersion 21
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
 
@@ -20,26 +20,35 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.kenilt.loopingviewpager.example'
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':loopingviewpager')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.3.0-beta01'
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'me.relex:circleindicator:2.1.4'
-    implementation 'com.kenilt.circleindicator:circleindicator:1.0.1'
-    implementation "com.psoffritti.librarysampleapptemplate:core:1.0.2"
-    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
-    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'io.github.kenilt:circleindicator:1.0.1'
+    implementation 'com.github.PierfrancescoSoffritti:library-sample-app-template:v1.0.3'
+    implementation("com.tbuonomo:dotsindicator:5.0")
+    implementation 'com.github.romandanylyk:PageIndicatorView:v.1.0.3'
     implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
 }

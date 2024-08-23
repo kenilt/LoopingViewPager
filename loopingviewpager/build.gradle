@@ -3,39 +3,12 @@ apply plugin: 'kotlin-android'
 
 apply from: "$project.rootDir/tools/script-git-version.gradle"
 
-ext {
-    bintrayRepo = 'LoopingViewPager' // Repo name in bintray dashboard
-    bintrayName = 'com.kenilt.loopingviewpager' // package name of the bintray repo
-
-    publishedGroupId = 'com.kenilt.loopingviewpager'   // this is the ID we want to see in implementation line
-    libraryName = 'loopingviewpager'     // this is the module name of library
-    artifact = 'loopingviewpager'        // this is the artifact we want to see in implementation line
-
-    libraryDescription = 'A ViewPager which support infinite looping effect, smart auto-scroll, compatible with any indicators and easily for usage' // description of library
-
-    siteUrl = 'https://github.com/kenilt/LoopingViewPager'    // git repo url
-    gitUrl = 'https://github.com/kenilt/LoopingViewPager.git' // git repo vcs url
-
-    libraryVersion = appVersionName      // library version
-
-    developerId = 'kenilt'                // This is your bintray username
-    developerName = 'Kenilt Nguyen'              // Developer's name
-    developerEmail = 'nhthang.khtn@gmail.com'                // Developer's email
-
-    licenseName = 'The MIT License (MIT)'  // for example, The Apache Software License, Version 2.0
-    licenseUrl = 'https://opensource.org/licenses/MIT'   // for example, http://www.apache.org/licenses/LICENSE-2.0.txt
-    allLicenses = ["MIT"]    // array of licenses, for example, ["Apache-2.0"]
-}
-
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdk 34
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 21
+        targetSdkVersion 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -47,17 +20,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'com.kenilt.loopingviewpager'
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.core:core-ktx:1.3.2'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
 
 // Avoid Kotlin docs error

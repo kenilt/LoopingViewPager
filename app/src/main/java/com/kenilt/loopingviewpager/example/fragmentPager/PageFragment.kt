@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 
 import com.kenilt.loopingviewpager.example.R
 import com.kenilt.loopingviewpager.example.model.PageModel
-import kotlinx.android.synthetic.main.fragment_page.view.*
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PAGE_MODEL = "arg_page"
@@ -36,8 +36,9 @@ class PageFragment : Fragment() {
         // Inflate the layout for this fragment
         val layout = inflater.inflate(R.layout.fragment_page, container, false)
         pageModel?.let { pageModel ->
-            layout.item_txtText.text = pageModel.text
-            layout.item_txtText.setBackgroundColor(ContextCompat.getColor(requireContext(), pageModel.color))
+            val txtText = layout.findViewById<TextView>(R.id.item_txtText)
+            txtText.text = pageModel.text
+            txtText.setBackgroundColor(ContextCompat.getColor(requireContext(), pageModel.color))
         }
         return layout
     }
