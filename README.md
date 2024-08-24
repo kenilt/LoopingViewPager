@@ -1,5 +1,5 @@
 # LoopingViewPager
-[ ![Download](https://api.bintray.com/packages/kenilt/LoopingViewPager/com.kenilt.loopingviewpager/images/download.svg) ](https://bintray.com/kenilt/LoopingViewPager/com.kenilt.loopingviewpager/_latestVersion)
+[ [Download] ](https://central.sonatype.com/artifact/io.github.kenilt/loopingviewpager)
 
 A ViewPager that supports infinite looping effect, smart auto-scroll, compatible with any indicators and easy to use. It especially uses it as banners of application with a simple item page.
 
@@ -33,15 +33,15 @@ Having the sample apps installed is a good way to be notified of new releases. A
 
 
 # Download
-The Gradle dependency is available via [jCenter](https://bintray.com/kenilt/LoopingViewPager). jCenter is the default Maven repository used by Android Studio.
+The Gradle dependency is available via [MavenCentral](https://central.sonatype.com/artifact/io.github.kenilt/loopingviewpager).
 
 The minimum API level supported by this library is API 16.
 
 ##### AndroidX
-The latest version here [ ![Download](https://api.bintray.com/packages/kenilt/LoopingViewPager/com.kenilt.loopingviewpager/images/download.svg) ](https://bintray.com/kenilt/LoopingViewPager/com.kenilt.loopingviewpager/_latestVersion)
+The latest version here [ [Download] ](https://central.sonatype.com/artifact/io.github.kenilt/loopingviewpager)
 ```
 dependencies {
-    implementation 'com.kenilt.loopingviewpager:loopingviewpager:0.2.0'
+    implementation("io.github.kenilt:loopingviewpager:1.0.0")
 }
 ```
 
