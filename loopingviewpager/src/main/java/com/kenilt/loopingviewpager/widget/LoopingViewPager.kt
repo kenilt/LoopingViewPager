@@ -19,6 +19,7 @@ class LoopingViewPager : ViewPager {
     private var originalAdapter: PagerAdapter? = null
     private var internalAdapter: PagerAdapter? = null
     private val pageChangeListenerMap = HashMap<OnPageChangeListener, InternalOnPageChangeListener>()
+    private var insideArrowScroll: Boolean = false
 
     constructor(context: Context) : super(context)
 
@@ -100,11 +101,16 @@ class LoopingViewPager : ViewPager {
     }
 
     override fun setCurrentItem(item: Int, smoothScroll: Boolean) {
+        // setCurrentItem() assumes it is passed an item position from the
+        // original adapter, however when it is invoked from within arrowScroll()
+        // it is passed an item position from the internal adapter, so the code
+        // should account for it.
+        val originalItem = if (insideArrowScroll) getPagerPosition(originalAdapter, item) else item
         val count = adapter?.count ?: 0
-        if (item == 0 && currentItem == count - 1) {
+        if (originalItem == 0 && currentItem == count - 1) {
             super.setCurrentItem(count + 2, smoothScroll)
         } else {
-            super.setCurrentItem(getInternalPosition(originalAdapter, item), smoothScroll)
+            super.setCurrentItem(getInternalPosition(originalAdapter, originalItem), smoothScroll)
         }
     }
 
@@ -121,6 +127,13 @@ class LoopingViewPager : ViewPager {
         pageChangeListenerMap.remove(listener)?.let {
             super.removeOnPageChangeListener(it)
         }
+    }
+
+    override fun arrowScroll(direction: Int): Boolean {
+        insideArrowScroll = true
+        val handled = super.arrowScroll(direction)
+        insideArrowScroll = false
+        return handled
     }
 
     private fun handleSetCurrentItem(position: Int) {
